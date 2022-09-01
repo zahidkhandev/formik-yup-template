@@ -1,0 +1,87 @@
+:root {
+  --border-color: rgba(219, 218, 218, 0.933);
+}
+.title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.formWrapper {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.formColumn {
+  border: 1px var(--border-color) solid;
+  border-radius: 5px;
+  padding: 30px 50px;
+}
+
+.fieldColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldColumn label {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 5px 0 0;
+}
+
+.noErrorInput {
+  padding: 7px 10px;
+  background: white;
+  border: none;
+  outline: 1px var(--border-color) solid;
+  border-radius: 3px;
+  margin: 7px 0 5px;
+}
+
+.inputError {
+  padding: 7px 10px;
+  background: white;
+  border: none;
+  outline: 1px red solid;
+  border-radius: 3px;
+  margin: 7px 0 5px;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+  margin: 0;
+}
+
+.nameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 40px;
+  margin-top: 13px;
+}
+
+.fieldColumnMargin {
+  margin-top: 13px;
+}
+
+.phoneNumField {
+  background: white;
+  border: none;
+  outline: 1px var(--border-color) solid;
+  border-radius: 3px;
+  padding: 0 10px;
+  margin: 7px 0 5px;
+}
+
+.phoneNumField input {
+  border: none;
+  outline: none;
+  width: 90%;
+  margin: 0;
+}
+
+.countryCode {
+  font-size: 14px;
+  font-weight: 600;
+}
