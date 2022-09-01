@@ -1,6 +1,6 @@
 # Formik Yup template
 
-This project uses the Formik and Yup libraries to create a simple form that takes in general user information and multiple addresses.
+This project uses the Formik and Yup libraries to create a simple form that takes in general user information and multiple addresses. This is an application of formik nested forms.
 
 ## Packages used
 

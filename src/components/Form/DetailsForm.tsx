@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { yupFormSchema } from "../../utils/yupFormSchema";
+import AddressForm from "./AddressForm/AddressForm";
 import "./detailsForm.css";
 
 interface formSchema {
@@ -8,11 +9,7 @@ interface formSchema {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  addresses: [
-    {
-      pinCode: string;
-    }
-  ];
+  addresses: Array<Object>;
 }
 
 const initialValues: formSchema = {
@@ -20,14 +17,11 @@ const initialValues: formSchema = {
   firstName: "",
   lastName: "",
   phoneNumber: "",
-  addresses: [
-    {
-      pinCode: "",
-    },
-  ],
+  addresses: [],
 };
 
 function DetailsForm() {
+  const [addresses, setAddresses] = useState<Array<Object>>([]);
   return (
     <Formik
       initialValues={initialValues}
@@ -37,11 +31,13 @@ function DetailsForm() {
       }}
     >
       {(formik) => {
-        const { errors, touched, isValid, dirty } = formik;
+        const { errors, touched, isValid, dirty, values, setFieldValue } =
+          formik;
 
         return (
           <Form>
             <div className="formWrapper">
+              {/* FIRST COLUMN */}
               <div className="formColumn">
                 <h1 className="title">General Details</h1>
 
@@ -118,18 +114,20 @@ function DetailsForm() {
                 <div className="fieldColumnMargin">
                   <div className="fieldColumn">
                     <label htmlFor="tel">Phone Number</label>
-                    <div className="phoneNumField">
+                    <div
+                      className={
+                        errors.phoneNumber && touched.phoneNumber
+                          ? "phoneNumError"
+                          : "phoneNumField"
+                      }
+                    >
                       <span className="countryCode">+91</span>
                       <Field
                         type="tel"
                         name="phoneNumber"
                         id="phoneNumber"
                         maxLength="10"
-                        className={
-                          errors.phoneNumber && touched.phoneNumber
-                            ? "inputError"
-                            : "noErrorInput"
-                        }
+                        className="phoneNumInput"
                       />
                     </div>
                     <ErrorMessage
@@ -140,10 +138,46 @@ function DetailsForm() {
                   </div>
                 </div>
               </div>
+
+              {/* SECOND COLUMN */}
+
               <div className="formColumn">
-                <h1 className="title">Addresses</h1>
+                <div className="addressRow">
+                  <h1 className="title">Addresses</h1>
+                  <div
+                    onClick={() => {
+                      setAddresses((prev) => [...prev, {}]);
+                      console.log(values);
+                    }}
+                    className="addAddress"
+                  >
+                    <img
+                      src={require("../../assets/icons/plus-solid.svg").default}
+                      alt="mySvgImage"
+                      style={{ height: "20px" }}
+                    />
+                    Add Address
+                  </div>
+                </div>
+                {addresses.map((address, index) => {
+                  return (
+                    <AddressForm
+                      index={index}
+                      key={index}
+                      setAddresses={setAddresses}
+                    />
+                  );
+                })}
               </div>
             </div>
+            <button
+              className="submitButton"
+              onClick={() => {
+                setFieldValue("addresses", addresses);
+              }}
+            >
+              Save
+            </button>
           </Form>
         );
       }}
